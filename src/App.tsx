@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // @ts-ignore
 import SankeyPlot from './SankeyPlot.tsx';
 // @ts-ignore
@@ -12,7 +12,18 @@ import { Box } from '@mui/material';
 const App = () => {
   const [links, setLinks] = useState<Array<Link>>([]);
   const [nodes, setNodes] = useState<Array<Node>>([]);
-  console.log(nodes, links);
+
+  useEffect(() => {
+    const storedNodes = localStorage.getItem('nodes');
+    const storedLinks = localStorage.getItem('links');
+    if (storedNodes != null) {
+      setNodes(JSON.parse(storedNodes));
+    }
+    if (storedLinks != null) {
+      setLinks(JSON.parse(storedLinks));
+    }
+  }, []);
+
   return (
     <Box>
       <SankeyPlot nodes={nodes} links={links} />

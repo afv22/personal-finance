@@ -14,8 +14,9 @@ export default (props: Props) => {
     const [target, setTarget] = useState('');
     const [value, setValue] = useState('');
     const handleSubmit = () => {
-        const newLink = new Link(source, target, value);
-        setLinks(links.concat(newLink));
+        const newLinks = links.concat(new Link(source, target, value));
+        setLinks(newLinks);
+        localStorage.setItem('links', JSON.stringify(newLinks));
         setSource('');
         setTarget('');
         setValue('');

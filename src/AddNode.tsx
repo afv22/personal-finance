@@ -12,13 +12,20 @@ export default (props: Props) => {
     const { nodes, setNodes } = props;
     const [label, setLabel] = useState('');
     const handleSubmit = () => {
-        const newNode = new Node(label);
-        setNodes(nodes.concat(newNode));
+        const newNodes = nodes.concat(new Node(label));
+        setNodes(newNodes);
+        localStorage.setItem('nodes', JSON.stringify(newNodes))
         setLabel('');
     }
     return (
         <Box>
-            <TextField onChange={event => setLabel(event.target.value)} id='add-node-label' label='Label' variant='outlined' value={label}/>
+            <TextField 
+                onChange={event => setLabel(event.target.value)} 
+                id='add-node-label' 
+                label='Label' 
+                variant='outlined' 
+                value={label}
+            />
             <Button onClick={handleSubmit} variant="contained" disableElevation>Add Node</Button>
         </Box>
     )
